@@ -95,11 +95,13 @@ class FCN8s(fluid.dygraph.Layer):
         x = self.score(x) # 对应网络结构的FC7 upscore
         x = self.up_output(x) # 上采样
         
-        up_output = x  # 1/16
+        up_output = x  # 1/16  
         x = self.score_pool4(pool4)
 
-        x = x[:, :, 5:5+up_output.shape[2], 5:5:up_out.shape[]]
+        x = x[:, :, 5:5+up_output.shape[2], 5:5+up_output.shape[3]]
         
+        up_pool4 = x 
+        x = up_pool4 + up_output
         return x     
 
 def main():
