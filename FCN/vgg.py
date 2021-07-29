@@ -4,7 +4,7 @@ from paddle.fluid.dygraph import to_variable
 from paddle.fluid.dygraph import Conv2D
 from paddle.fluid.dygraph import Dropout
 from paddle.fluid.dygraph import BatchNorm
-from paddle.fluid.dygraph import pool2D
+from paddle.fluid.dygraph import Pool2D
 from paddle.fluid.dygraph import Linear
 
 model_path = {
