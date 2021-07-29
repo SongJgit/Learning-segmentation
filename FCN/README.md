@@ -8,4 +8,6 @@
 -->
 
 # FCN的网络结构图
+
 ## 图源：https://aistudio.baidu.com/aistudio/education/group/info/1767
+![image](https://github.com/SongJgit/PaddleSeg-Learning/blob/main/picture/FCN.png)
