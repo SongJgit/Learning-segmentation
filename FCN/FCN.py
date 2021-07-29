@@ -1,4 +1,12 @@
 '''
+Descripttion: your project
+version: 1.0
+Author: SongJ
+Date: 2021-07-28 20:12:15
+LastEditors: SongJ
+LastEditTime: 2021-07-29 10:55:27
+'''
+'''
 Descripttion: Learning FCN
 version: 1.0
 Author: SongJ
@@ -39,10 +47,34 @@ class FCN8s(fluid.dygraph.Layer):
 
 
         self.fc6 = Conv2D(512, 4096, 7, act='relu')
-        self.fc7 = Conv2D(512, 4096, 1, act='relu')
+        self.fc7 = Conv2D(4096, 4096, 1, act='relu')
         self.drop6 = Dropout()
         self.drop7 = Dropout()
         
+        self.score = Conv2D(4096, num_classes, 1)
+        self.score_pool3 = Conv2D(256, num_classes, 1)
+        self.score_pool4 = Conv2D(512, num_classes, 1) # 对应图中的Pool4相加
+        
+        self.up_output = Conv2DTranspose(num_channels=num_classes,
+                                        num_filters=num_classes,
+                                        filter_size=4,
+                                        stride=2, 
+                                        bias_attr=False)
+        
+        
+        self.up_pool4 = Conv2DTranspose(num_channels=num_classes,
+                                        num_filters=num_classes,
+                                        filter_size=4,
+                                        stride=2, 
+                                        bias_attr=False)
+        
+        # 8倍上采样
+        self.up_final = Conv2DTranspose(num_channels=num_classes,
+                                        num_filters=num_classes,
+                                        filter_size=16,
+                                        stride=8, 
+                                        bias_attr=False)
+
     def forward(self, inputs):
         x = self.layer1(inputs)
         x = self.pool1(x)   # 1/2
@@ -60,6 +92,14 @@ class FCN8s(fluid.dygraph.Layer):
         x = self.fc7(x)
         x = self.drop7(x)
 
+        x = self.score(x) # 对应网络结构的FC7 upscore
+        x = self.up_output(x) # 上采样
+        
+        up_output = x  # 1/16
+        x = self.score_pool4(pool4)
+
+        x = x[:, :, 5:5+up_output.shape[2], 5:5:up_out.shape[]]
+        
         return x     
 
 def main():
