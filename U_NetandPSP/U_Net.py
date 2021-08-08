@@ -1,10 +1,10 @@
 '''
-Descripttion: Learning U_Net
+Descripttion: Learn U_Net
 version: 1.0
 Author: SongJ
 Date: 2021-08-07 15:53:57
 LastEditors: SongJ
-LastEditTime: 2021-08-07 17:00:13
+LastEditTime: 2021-08-08 09:42:24
 '''
 
 import numpy as np

@@ -1,10 +1,10 @@
 '''
-Descripttion: Learning FCN
+Descripttion: Learn FCN
 version: 1.0
 Author: SongJ
 Date: 2021-07-28 20:12:15
 LastEditors: SongJ
-LastEditTime: 2021-07-29 10:43:01
+LastEditTime: 2021-08-08 09:42:18
 '''
 
 import numpy as np
