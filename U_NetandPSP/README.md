@@ -8,4 +8,4 @@
 -->
 # UNet的网络结构图
 ## 图源：https://arxiv.org/abs/1505.04597
-![image](https://github.com/SongJgit/PaddleSeg-Learning/blob/main/picture/UNet.png)
+![image](https://github.com/SongJgit/PaddleSeg-Learning/blob/main/picture/UNet.jpg)
