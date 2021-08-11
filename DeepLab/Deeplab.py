@@ -4,7 +4,7 @@ version: 1.0
 Author: SongJ
 Date: 2021-08-10 09:48:02
 LastEditors: SongJ
-LastEditTime: 2021-08-10 21:51:17
+LastEditTime: 2021-08-11 08:37:21
 '''
 import paddle
 import paddle.fluid as fluid
@@ -41,6 +41,8 @@ class ASPPConv(fluid.dygraph.Sequential):
 
 
 class ASPPModule(Layer):
+    # 对应图中的ASPP模块
+    # 组成：1*1的卷积，三个比率的空洞卷积，adaptive pool，project(ASPP图中的最后一个1*1卷积模块)
     def __init__(self, num_channels, num_filters, rates):
         super(ASPPModule, self).__init__()
         self.features = []
@@ -54,6 +56,7 @@ class ASPPModule(Layer):
         self.features.append(ASPPPooling(num_channels, num_filters))
 
         for r in rates:
+            
             self.features.append(
                 ASPPConv(num_channels, num_filters,r)
             )
@@ -108,9 +111,6 @@ class DeepLab(Layer):
         feature_dim = 2048
         self.classifier =DeepLabHead(feature_dim,num_classes)
 
-
-
-    
     def forward(self,inputs):
         n,c,h,w=inputs.shape
         x = self.layer0(inputs)
